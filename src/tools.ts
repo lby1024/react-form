@@ -1,24 +1,4 @@
-import { useRef, useState } from "react"
-import { Config, ConfigItem, Form, FormItem, Obj } from "./types"
-
-export function getFormData(form: Form) {
-  const data: any = {}
-
-  for (let key in form) {
-    const { name, value } = form[key]
-    data[name] = value
-  }
-  // 动态表单,有的数据不需要显示出来
-  for (let key in data) {
-    const show = form[key].show || (() => true)
-    if (!show(data)) {
-      delete data[key]
-      form[key].value = undefined
-    }
-  }
-
-  return data
-}
+import { Config, ConfigItem, Obj, UseFormProps } from "./types"
 
 export function initFormData(config?: Config) {
   if (!config) return
@@ -80,49 +60,6 @@ export function obj2Array(obj: any) {
   return arr
 }
 
-
-
-interface updateFormProps {
-  form: Form
-  config: Config,
-  initialValue: Obj,
-}
-
-export function updateForm(props: updateFormProps) {
-  const {
-    config,
-    initialValue,
-    form
-  } = props
-
-  const res: Form = {}
-
-  for (let name in config) {
-    if (form[name]) res[name] = form[name]
-    else res[name] = createItem(name, config, initialValue)
-  }
-
-  return res
-}
-
-function createItem(name: string, config: Config, initialValue: Obj) {
-  return {
-    name,
-    type: getType(config[name]),
-    label: config[name].label || '',
-    value: getInitValue(name, config, initialValue),
-    error: undefined,
-    item: getItem(config[name]),
-    show: config[name].show
-  }
-}
-
-export function getType(configItem: ConfigItem): FormItem['type'] {
-  if (configItem.subForm) return 'subForm'
-  if (configItem.formList) return 'formList'
-  return 'formItem'
-}
-
 export function getItem(configItem: ConfigItem) {
   const { subForm, formList, formItem } = configItem
   if (subForm) return subForm
@@ -138,4 +75,27 @@ function getInitValue(name: string, config: Config, initialValue: Obj) {
   if (config[name].initValue) {
     return config[name].initValue
   }
+}
+
+
+/**
+ *
+ * 
+ * 
+ * 
+ *  
+ */
+export function initData(props: UseFormProps) {
+  const { config, initialValue } = props
+  const res: any = {}
+
+  for (let name in initialValue) {
+    config[name].initValue = initialValue[name]
+  }
+
+  for (let name in config) {
+    res[name] = config[name].initValue
+  }
+
+  return res
 }
