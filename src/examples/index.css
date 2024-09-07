@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  margin-bottom: 30px;
+  width: 500px;
+}
+
+.label {
+  width: 100px;
+  text-align: right;
+  margin-right: 20px;
+  padding-top: 5px;
+}
+
+[data-err] {
+  position: relative;
+}
+
+[data-err]::after {
+  position: absolute;
+  content: attr(data-err);
+  color: deeppink;
+  top: 110%;
+  left: 120px;
+  font-size: 12px;
+}
+
+.name,
+.item {
+  position: relative;
+}
+
+.name::after,
+.item::after {
+  position: absolute;
+  content: attr(data-err);
+  color: deeppink;
+  top: 110%;
+  left: 0px;
+  font-size: 12px;
+}
+
+.m-l {
+  margin-left: 120px;
+}
+
+Button {
+  margin-right: 9px;
+}
