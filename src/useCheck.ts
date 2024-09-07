@@ -21,20 +21,38 @@ export const useCheck = (config: Config, formData: Obj) => {
     return await check(name, formData, rules)
   }
 
-  async function checkList() {
-    const errs = []
+  async function submit() {
+    const list = []
+    let hasError = false
+
 
     for (let check of listRef.current) {
       const error = await check()
-      if (error) errs.push(error)
+      list.push(error)
+      if (error) hasError = true
     }
 
-    return errs[0]
+    return {
+      hasError,
+      firstError: getFirstError(list),
+      error: list[0]
+    }
+  }
+
+
+  function subscrible(checkFn: Function) {
+    listRef.current.push(checkFn)
+
+    return () => {
+      const index = listRef.current.indexOf(checkFn)
+      listRef.current.splice(index, 1)
+    }
   }
 
   return {
-    checkList,
-    checkItem
+    submit,
+    checkItem,
+    subscrible
   }
 }
 
@@ -51,4 +69,16 @@ async function check(name: string, formData: Obj, rules: Function[]) {
   }
 
   return err
+}
+
+function getFirstError(arr: any[]) {
+  for (let item of arr) {
+    if (item) return getFirstProp(item)
+  }
+}
+
+function getFirstProp(error: Obj) {
+  for (let name in error) {
+    return error[name]
+  }
 }

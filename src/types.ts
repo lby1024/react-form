@@ -23,3 +23,24 @@ export interface UseFormProps {
   onFail?: (...arg: any) => any,    // 提交失败触发
   onChange?: Function,  // value发生变化时触发
 }
+/**
+ * type Data = {
+ *  sex: boolen
+ *  age: number
+ * }
+ * type Name = 'sex' | 'age'
+ */
+export type Name<Data> = keyof Data
+
+export type FormData<Config> = {
+  [name in Name<Config>]?: any
+}
+/**
+ * const errs = {
+ *  age: '年龄不能为空'
+ *  sex: '请选择性别'
+ * }
+ */
+export type Err<Config> = {
+  [name in Name<Config>]?: string
+}
