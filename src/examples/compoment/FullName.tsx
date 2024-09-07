@@ -1,9 +1,7 @@
-import { required } from "@lby/react-form/rules"
-import useForm from "@lby/react-form/useForm"
 import { Flex, Input } from "antd"
 import { FC, useEffect } from "react"
 import '../index.css'
-import { Config } from "@lby/react-form/types"
+import { Config, required, useForm } from "@lby/react-form"
 
 export const fullNameConfig: Config = {
   firstName: {

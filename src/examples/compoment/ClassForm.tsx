@@ -1,10 +1,8 @@
-import { required } from "@lby/react-form/rules"
-import { Config } from "@lby/react-form/types"
 import { Input } from "antd"
-import useForm from "@lby/react-form/useForm"
 import { FC, useEffect } from "react"
 import { FormItem } from "./FormItem"
-import { NameList } from "./nameList"
+// import { NameList } from "./nameList"
+import { Config, required, useForm } from "@lby/react-form"
 
 export const classConfig: Config = {
   class: {
@@ -12,10 +10,10 @@ export const classConfig: Config = {
     formItem: <Input placeholder="班级名称" />,
     rules: [required()]
   },
-  names: {
-    label: '名单',
-    formList: <NameList />,
-  }
+  // names: {
+  //   label: '名单',
+  //   formList: <NameList />,
+  // }
 }
 
 
@@ -37,9 +35,9 @@ export const ClassForm: FC<ClassFormProps> = (props) => {
   }, [props.value])
 
   useEffect(() => {
-    if (!props.subscrible) return
-    const unSub = props.subscrible(form.checkForm)
-    return () => unSub()
+    // if (!props.subscrible) return
+    // const unSub = props.subscrible(form.checkForm)
+    // return () => unSub()
   }, [])
 
   const formItems = form.items.map(item => (

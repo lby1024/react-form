@@ -14,22 +14,12 @@ export const useBind = (props: UseBindProps) => {
 
   const { formData, error, config, checker } = props
 
-  return useMemo(() => {
-    const arr = []
+  const change = (name: string) => (e: any) => {
+    formData[name] = getValue(e, config[name].valueName)
+    props.onChange(formData, name)
+  }
 
-    for (let name in formData) {
-      arr.push({
-        name,
-        formItem: cloneItem(name),
-        label: config[name].label,
-        error: error[name].error
-      })
-    }
-
-    return arr
-  }, [formData, error])
-
-  function cloneItem(name: string) {
+  const cloneItem = (name: string) => {
     const { valueName = 'value' } = config[name]
 
     const props = {
@@ -46,14 +36,31 @@ export const useBind = (props: UseBindProps) => {
     return cloneElement(item, props)
   }
 
-  const change = (name: string) => (e: any) => {
 
-  }
+  return useMemo(() => {
+    const arr = []
 
+    for (let name in formData) {
+      arr.push({
+        name,
+        formItem: cloneItem(name),
+        label: config[name].label,
+        error: error[name].error
+      })
+    }
+
+    return arr
+  }, [formData, error])
 }
 
 function getItem(configItem: ConfigItem) {
   if (configItem.subForm) return configItem.subForm
   if (configItem.formList) return configItem.formList
   return configItem.formItem
+}
+
+function getValue(e: any, valueName = 'value') {
+  if (!e) return e
+  if (!e.target) return e
+  return e.target[valueName]
 }

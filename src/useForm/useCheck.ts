@@ -65,6 +65,7 @@ export const useCheck = (config: Config, formData: Obj) => {
   return {
     submit,
     checkItem,
+    checkForm,
     subscrible
   }
 }

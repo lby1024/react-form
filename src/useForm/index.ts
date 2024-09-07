@@ -26,11 +26,13 @@ export const useForm = (props: UseFormProps) => {
   const items = useBind({
     formData: data,
     error,
-    onChange
+    config,
+    checker,
+    onChange,
   })
 
 
-  const setForm = (formData: F) => {
+  const setFormData = (formData: F) => {
     setData({
       ...data,
       ...formData
@@ -51,6 +53,8 @@ export const useForm = (props: UseFormProps) => {
 
   return {
     submit,
-    setForm
+    checkForm: checker,
+    setFormData,
+    items
   }
 }

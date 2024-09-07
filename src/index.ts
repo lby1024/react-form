@@ -1,6 +1,6 @@
 export { default as Foo } from './Foo';
 
-export { default as useForm } from './useForm'
-export { default as useFormList } from './useFormList'
+export { useForm } from './useForm/index'
+export { useFormList } from './useFormList/index'
 export * from './rules'
 export * from './types'
