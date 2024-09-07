@@ -1,5 +1,6 @@
 import { useRef } from "react"
 import { CheckFn, Config, Obj } from "../types"
+import { useFn } from "../hooks/useFn"
 
 
 export const useCheck = (config: Config, formData: Obj) => {
@@ -11,7 +12,7 @@ export const useCheck = (config: Config, formData: Obj) => {
     let hasError = false
     let firstError
 
-    for (let name in config) {
+    for (let name in formData) {
       error[name] = await checkItem(name)
       if (error[name]) {
         hasError = true
@@ -25,12 +26,18 @@ export const useCheck = (config: Config, formData: Obj) => {
       firstError
     }
   }
-
-  async function checkItem(name: string) {
+  /**
+   * useFn 解决获取不到formData最新值
+   * checkItem用法: checkItem('nickName')
+   */
+  const checkItem = useFn(async (e) => {
+    const { formData, args } = e
+    const name = args[0]
     const rules = config[name].rules || []
     const err = await check(name, formData, rules)
     return err as string
-  }
+  }, { formData })
+
 
   async function submit() {
     let hasError = false

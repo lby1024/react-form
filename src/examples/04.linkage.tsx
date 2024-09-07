@@ -29,7 +29,7 @@ const initialValue = {
 
 export default () => {
 
-  const { items, submit, setFormData } = useForm({
+  const form = useForm({
     initialValue,
     config,
     onSuccess: data => msg(data),
@@ -38,7 +38,7 @@ export default () => {
   })
 
   function fill() {
-    setFormData({
+    form.setFormData({
       nickName: 'Elon Musk',
       gender: 'other',
       other: 'AI'
@@ -47,19 +47,15 @@ export default () => {
   /**
    * 如果gender发生变化就修改nickName
    */
-  function onChange(form: any, name: string) {
+  function onChange(formData: any, name: string) {
     if (name !== 'gender') return
-    const v = form[name]
-    if (v === 'female') setFormData({ nickName: 'lily👩🏻' })
-    if (v === 'male') setFormData({ nickName: 'tom👨🏻' })
-    if (v === 'other') setFormData({ nickName: 'siri😅' })
+    const v = formData[name]
+    if (v === 'female') form.setFormData({ nickName: 'lily👩🏻' })
+    if (v === 'male') form.setFormData({ nickName: 'tom👨🏻' })
+    if (v === 'other') form.setFormData({ nickName: 'siri😅' })
   }
 
-  function reset() {
-    setFormData(initialValue)
-  }
-
-  const formItems = items.map(item => (
+  const formItems = form.items.map(item => (
     <FormItem
       key={item.name}
       label={item.label}
@@ -72,8 +68,8 @@ export default () => {
     <div>
       {formItems}
       <div className='m-l'>
-        <Button type='primary' onClick={submit} >submit</Button>
-        <Button onClick={reset} >reset</Button>
+        <Button type='primary' onClick={form.submit} >submit</Button>
+        <Button onClick={form.reset} >reset</Button>
         <Button type='link' onClick={fill} >fill</Button>
       </div>
     </div>

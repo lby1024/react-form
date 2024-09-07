@@ -45,7 +45,7 @@ export const useBind = (props: UseBindProps) => {
         name,
         formItem: cloneItem(name),
         label: config[name].label,
-        error: error[name].error
+        error: error[name]
       })
     }
 
