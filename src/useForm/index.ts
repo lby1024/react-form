@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { UseFormProps, FormData, Err } from "./types";
-import { initData } from "./tools";
+import { UseFormProps, FormData, Err } from "../types";
+import { initData } from "../tools";
 import { useCheck } from "./useCheck";
 
 
@@ -27,13 +27,12 @@ export const useForm = (props: UseFormProps) => {
     const res = await checker.submit()
 
     if (res.hasError) {
-      setError(res.error)
+      if (res.error) setError(res.error)
       props.onFail && props.onFail(res.firstError)
     } else {
       props.onSuccess && props.onSuccess(data)
     }
   }
-
 
   return {
     submit

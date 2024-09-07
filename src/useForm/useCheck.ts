@@ -1,20 +1,28 @@
 import { useRef } from "react"
-import { Config, Obj } from "./types"
+import { CheckFn, Config, Obj } from "../types"
+
 
 export const useCheck = (config: Config, formData: Obj) => {
 
-  const listRef = useRef<Function[]>([checkForm])
+  const listRef = useRef<CheckFn[]>([checkForm])
 
-  async function checkForm(data: Obj) {
+  async function checkForm() {
     let error: Obj = {}
+    let hasError = false
+    let firstError
 
     for (let name in config) {
       error[name] = await checkItem(name)
-
+      if (error[name]) {
+        hasError = true
+        if (!firstError) firstError = error[name]
+      }
     }
 
     return {
-      error
+      hasError,
+      error,
+      firstError
     }
   }
 
@@ -24,25 +32,27 @@ export const useCheck = (config: Config, formData: Obj) => {
   }
 
   async function submit() {
-    const list = []
     let hasError = false
+    let firstError
+    let error
 
-
-    for (let check of listRef.current) {
-      const error = await check()
-      list.push(error)
-      if (error) hasError = true
+    for (let i = 0; i < listRef.current.length; i++) {
+      const checkFn = listRef.current[i]
+      const res = await checkFn()
+      if (res.hasError) hasError = true
+      if (res.hasError && !firstError) firstError = res.firstError
+      if (i === 0) error = res.error
     }
 
     return {
       hasError,
-      firstError: getFirstError(list),
-      error: list[0]
+      firstError,
+      error
     }
   }
 
 
-  function subscrible(checkFn: Function) {
+  function subscrible(checkFn: CheckFn) {
     listRef.current.push(checkFn)
 
     return () => {
@@ -71,16 +81,4 @@ async function check(name: string, formData: Obj, rules: Function[]) {
   }
 
   return err
-}
-
-function getFirstError(arr: any[]) {
-  for (let item of arr) {
-    if (item) return getFirstProp(item)
-  }
-}
-
-function getFirstProp(error: Obj) {
-  for (let name in error) {
-    return error[name]
-  }
 }

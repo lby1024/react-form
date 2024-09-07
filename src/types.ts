@@ -44,3 +44,12 @@ export type FormData<Config> = {
 export type Err<Config> = {
   [name in Name<Config>]?: string
 }
+
+
+type ErrorRes = {
+  hasError: boolean
+  firstError: string
+  error: Obj
+}
+
+export type CheckFn = () => Promise<ErrorRes>
