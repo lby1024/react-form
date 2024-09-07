@@ -6,14 +6,16 @@ export const useCheck = (config: Config, formData: Obj) => {
   const listRef = useRef<Function[]>([checkForm])
 
   async function checkForm(data: Obj) {
-    let errs = []
+    let error: Obj = {}
 
     for (let name in config) {
-      const err = await checkItem(name)
-      if (err) errs.push(err)
+      error[name] = await checkItem(name)
+
     }
 
-    return errs[0]
+    return {
+      error
+    }
   }
 
   async function checkItem(name: string) {

@@ -24,15 +24,11 @@ export const useForm = (props: UseFormProps) => {
 
 
   async function submit() {
-    const {
-      hasError,
-      error,
-      firstError
-    } = await checker.submit()
+    const res = await checker.submit()
 
-    if (hasError) {
-      setError(error)
-      props.onFail && props.onFail(firstError)
+    if (res.hasError) {
+      setError(res.error)
+      props.onFail && props.onFail(res.firstError)
     } else {
       props.onSuccess && props.onSuccess(data)
     }
