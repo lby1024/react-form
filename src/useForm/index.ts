@@ -2,6 +2,7 @@ import { useState } from "react";
 import { UseFormProps, FormData, Err } from "../types";
 import { initData } from "../tools";
 import { useCheck } from "./useCheck";
+import { useBind } from "./useBind";
 
 
 export const useForm = (props: UseFormProps) => {
@@ -13,6 +14,21 @@ export const useForm = (props: UseFormProps) => {
   const [error, setError] = useState<E>({})
   const checker = useCheck(config, data)
 
+  const onChange = async (formData: F, name: string) => {
+    setData(formData)
+    const err = await checker.checkItem(name)
+    setError(error => ({
+      ...error,
+      name: err
+    }))
+  }
+
+  const items = useBind({
+    formData: data,
+    error,
+    onChange
+  })
+
 
   const setForm = (formData: F) => {
     setData({
@@ -21,7 +37,6 @@ export const useForm = (props: UseFormProps) => {
     })
     setError({})
   }
-
 
   async function submit() {
     const res = await checker.submit()
@@ -35,6 +50,7 @@ export const useForm = (props: UseFormProps) => {
   }
 
   return {
-    submit
+    submit,
+    setForm
   }
 }

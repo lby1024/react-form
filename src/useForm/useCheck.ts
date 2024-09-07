@@ -28,7 +28,8 @@ export const useCheck = (config: Config, formData: Obj) => {
 
   async function checkItem(name: string) {
     const rules = config[name].rules || []
-    return await check(name, formData, rules)
+    const err = await check(name, formData, rules)
+    return err as string
   }
 
   async function submit() {
