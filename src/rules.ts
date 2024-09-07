@@ -1,6 +1,3 @@
-import { initFormData } from "./tools"
-import { Config, FormListConfig } from "./types"
-
 export const required = (msg?: string) => (v: any, formData: any) => {
   if (!v) {
     throw msg || `不能为空`
