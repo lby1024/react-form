@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { Obj } from "../types"
 
 type UseBindProps = {
@@ -7,5 +8,12 @@ type UseBindProps = {
 }
 
 export const useBind = (props: UseBindProps) => {
+
+  const { formData, error } = props
+
+  const items = useMemo(() => {
+
+  }, [formData, error])
+
   return []
 }
