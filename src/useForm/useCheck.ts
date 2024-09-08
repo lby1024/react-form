@@ -1,43 +1,64 @@
-import { useRef } from "react"
-import { CheckFn, Config, Obj } from "../types"
-import { useFn } from "../hooks/useFn"
+import { useEffect, useRef } from "react"
+import { CheckFn, Obj, UseFormProps } from "../types"
+import { isFunction } from "../tools"
+import { useCurrent } from "../hooks/useCurrent"
 
 
-export const useCheck = (config: Config, formData: Obj) => {
+export const useCheck = (
+  useFormProps: UseFormProps,
+  [formData, setData]: [Obj, Function],
+  [error, setError]: [Obj, Function]
+) => {
+  const { config } = useFormProps
 
-  const listRef = useRef<CheckFn[]>([checkForm])
-
-  async function checkForm() {
+  const checkForm: CheckFn = useCurrent(async ({ formData }) => {
     let error: Obj = {}
     let hasError = false
     let firstError
 
     for (let name in formData) {
       error[name] = await checkItem(name)
+
       if (error[name]) {
         hasError = true
         if (!firstError) firstError = error[name]
       }
     }
+    setError(error)
 
     return {
       hasError,
       error,
       firstError
     }
-  }
+
+  }, { formData })
+
+  const listRef = useRef<CheckFn[]>([checkForm])
+  /**
+   * 根表单订阅子表单的checkForm
+   */
+  useEffect(() => {
+    const sub = useFormProps.father
+    if (isFunction(sub) === false) {
+      return
+    }
+    const unSub = sub(checkForm)
+    return () => unSub()
+  }, [])
+
   /**
    * useFn 解决获取不到formData最新值
    * checkItem用法: checkItem('nickName')
    */
-  const checkItem = useFn(async (e) => {
-    const { formData, args } = e
-    const name = args[0]
+  const checkItem = useCurrent(async (dep, args) => {
+    const { formData } = dep
+    const [name] = args
+
     const rules = config[name].rules || []
     const err = await check(name, formData, rules)
     return err as string
   }, { formData })
-
 
   async function submit() {
     let hasError = false

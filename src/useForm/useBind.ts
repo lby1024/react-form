@@ -1,22 +1,21 @@
 import { cloneElement, useMemo } from "react"
-import { Config, ConfigItem, Obj } from "../types"
+import { ConfigItem, Obj, UseFormProps } from "../types"
 import { useCheck } from "./useCheck"
 
-type UseBindProps = {
-  checker: ReturnType<typeof useCheck>
-  config: Config
-  formData: Obj
-  error: Obj
-  onChange: (formData: Obj, name: string) => void
-}
 
-export const useBind = (props: UseBindProps) => {
+export const useBind = (
+  useFormProps: UseFormProps,
+  formData: any,
+  error: any,
+  checker: ReturnType<typeof useCheck>,
+  onChange: Function
+) => {
 
-  const { formData, error, config, checker } = props
+  const { config, father } = useFormProps
 
   const change = (name: string) => (e: any) => {
     formData[name] = getValue(e, config[name].valueName)
-    props.onChange(formData, name)
+    onChange(formData, name)
   }
 
   const cloneItem = (name: string) => {
@@ -29,7 +28,7 @@ export const useBind = (props: UseBindProps) => {
     }
     // 如果是<input/>, 就不传入subscrible
     if (!config[name].formItem) {
-      props.subscrible = checker.subscrible
+      props.father = father || checker.subscrible
     }
 
     const item = getItem(config[name])

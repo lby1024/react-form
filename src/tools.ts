@@ -1,25 +1,5 @@
 import { Config, ConfigItem, Obj, UseFormProps } from "./types"
 
-export function initFormData(config?: Config) {
-  if (!config) return
-
-  const data: any = {}
-
-  for (let name in config) {
-    data[name] = undefined
-  }
-  // 动态表单,有的数据不需要显示出来
-  for (let name in data) {
-    const show = config[name].show || (() => true)
-    if (!show(data)) {
-      delete data[name]
-    }
-  }
-
-  return data
-}
-
-
 
 export function getFirstError(err: Obj): string {
   if (!err) return ''
@@ -98,4 +78,8 @@ export function initData(props: UseFormProps) {
   }
 
   return res
+}
+
+export function isFunction(value: any) {
+  return typeof value === 'function';
 }

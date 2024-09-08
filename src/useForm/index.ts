@@ -13,33 +13,36 @@ export const useForm = (props: UseFormProps) => {
   type E = Err<typeof config>
   const [data, setData] = useFormData<F>(props)
   const [error, setError] = useState<E>({})
-  const checker = useCheck(config, data)
+  const checker = useCheck(
+    props,
+    [data, setData],
+    [error, setError]
+  )
 
   const onChange = async (formData: F, name: string) => {
     setData(formData)
     props.onChange && props.onChange(formData, name)
     const err = await checker.checkItem(name)
-    setError(error => ({
+    setError({
       ...error,
       [name]: err
-    }))
+    })
   }
 
-  const items = useBind({
-    formData: data,
+  const items = useBind(
+    props,
+    data,
     error,
-    config,
     checker,
     onChange,
-  })
+  )
 
 
   const setFormData = (formData: F) => {
-    const d = {
+    setData({
       ...data,
       ...formData
-    }
-    setData(d)
+    })
     setError({})
   }
 
@@ -51,9 +54,7 @@ export const useForm = (props: UseFormProps) => {
 
   async function submit() {
     const res = await checker.submit()
-
     if (res.hasError) {
-      if (res.error) setError(res.error)// 有可能是子表单hasError
       props.onFail && props.onFail(res.firstError)
     } else {
       props.onSuccess && props.onSuccess(data)

@@ -18,6 +18,7 @@ export type Config = {
 
 export interface UseFormProps {
   config: Config,
+  father?: any,
   initialValue?: any,
   onSuccess?: (...arg: any) => any, // 提交成功触发
   onFail?: (...arg: any) => any,    // 提交失败触发

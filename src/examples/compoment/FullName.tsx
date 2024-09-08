@@ -17,24 +17,19 @@ export const fullNameConfig: Config = {
 interface FullNameProps {
   value?: any,
   onChange?: Function,
-  subscrible?: Function
+  father?: any
 }
 export const FullName: FC<FullNameProps> = (props) => {
 
   const form = useForm({
     config: fullNameConfig,
-    onChange: props.onChange
+    onChange: props.onChange,
+    father: props.father
   })
 
   useEffect(() => {
     form.setFormData(props.value)
   }, [props.value])
-
-  useEffect(() => {
-    if (!props.subscrible) return
-    const unSub = props.subscrible(form.checkForm)
-    return () => unSub()
-  }, [])
 
   const formItems = form.items.map(item => (
     <div className='name' data-err={item.error} key={item.name} >
