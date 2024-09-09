@@ -54,3 +54,23 @@ type ErrorRes = {
 }
 
 export type CheckFn = () => Promise<ErrorRes>
+
+export type ListConfig = {
+  formItem?: any
+  subForm?: any
+  formList?: any
+  label?: string
+  rules?: Function[]
+  listRules?: Function[]
+  valueName?: string // 默认值value, CheckBox的valueName是checked
+  initValue?: any
+}
+
+export interface UseFormListProps {
+  config: ListConfig,
+  father?: any,
+  initialValue?: any,
+  onSuccess?: (...arg: any) => any, // 提交成功触发
+  onFail?: (...arg: any) => any,    // 提交失败触发
+  onChange?: Function,  // value发生变化时触发
+}

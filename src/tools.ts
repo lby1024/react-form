@@ -1,14 +1,14 @@
 import { Config, ConfigItem, Obj, UseFormProps } from "./types"
 
 
-export function getFirstError(err: Obj): string {
-  if (!err) return ''
-  const key = Object.keys(err)[0]
-  if (typeof err[key] === 'string') {
-    return err[key]
-  }
-  return getFirstError(err[key])
-}
+// export function getFirstError(err: Obj): string {
+//   if (!err) return ''
+//   const key = Object.keys(err)[0]
+//   if (typeof err[key] === 'string') {
+//     return err[key]
+//   }
+//   return getFirstError(err[key])
+// }
 
 // export const getV = (o: any) => (...args: any[]) => {
 //   args.forEach(key => {
@@ -21,24 +21,24 @@ export function getFirstError(err: Obj): string {
 // }
 
 
-let i = 0
-export function createName() {
-  const time = new Date().getTime()
-  return `${time}-${i++}`
-}
+// let i = 0
+// export function createName() {
+//   const time = new Date().getTime()
+//   return `${time}-${i++}`
+// }
 
 /**
  * 对象转数组
  */
-export function obj2Array(obj: any) {
-  if (!obj) return
-  const arr = []
-  for (let key in obj) {
-    arr.push(obj[key])
-  }
+// export function obj2Array(obj: any) {
+//   if (!obj) return
+//   const arr = []
+//   for (let key in obj) {
+//     arr.push(obj[key])
+//   }
 
-  return arr
-}
+//   return arr
+// }
 
 export function getItem(configItem: ConfigItem) {
   const { subForm, formList, formItem } = configItem
@@ -47,15 +47,15 @@ export function getItem(configItem: ConfigItem) {
   return formItem
 }
 
-function getInitValue(name: string, config: Config, initialValue: Obj) {
-  if (initialValue) {
-    return initialValue[name]
-  }
+// function getInitValue(name: string, config: Config, initialValue: Obj) {
+//   if (initialValue) {
+//     return initialValue[name]
+//   }
 
-  if (config[name].initValue) {
-    return config[name].initValue
-  }
-}
+//   if (config[name].initValue) {
+//     return config[name].initValue
+//   }
+// }
 
 
 /**
@@ -82,4 +82,11 @@ export function initData(props: UseFormProps) {
 
 export function isFunction(value: any) {
   return typeof value === 'function';
+}
+
+
+export function getValue(e: any, valueName = 'value') {
+  if (!e) return e
+  if (!e.target) return e
+  return e.target[valueName]
 }

@@ -1,6 +1,7 @@
 import { cloneElement, useMemo } from "react"
 import { ConfigItem, Obj, UseFormProps } from "../types"
 import { useCheck } from "./useCheck"
+import { getItem, getValue } from "../tools"
 
 
 export const useBind = (
@@ -50,16 +51,4 @@ export const useBind = (
 
     return arr
   }, [formData, error])
-}
-
-function getItem(configItem: ConfigItem) {
-  if (configItem.subForm) return configItem.subForm
-  if (configItem.formList) return configItem.formList
-  return configItem.formItem
-}
-
-function getValue(e: any, valueName = 'value') {
-  if (!e) return e
-  if (!e.target) return e
-  return e.target[valueName]
 }

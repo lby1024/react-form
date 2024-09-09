@@ -9,7 +9,7 @@ export const useCheck = (
   [formData, setData]: [Obj, Function],
   [error, setError]: [Obj, Function]
 ) => {
-  const { config } = useFormProps
+  const { config, father } = useFormProps
 
   const checkForm: CheckFn = useCurrent(async ({ formData }) => {
     let error: Obj = {}
@@ -39,7 +39,7 @@ export const useCheck = (
    * 根表单订阅子表单的checkForm
    */
   useEffect(() => {
-    const sub = useFormProps.father
+    const sub = father
     if (isFunction(sub) === false) {
       return
     }
