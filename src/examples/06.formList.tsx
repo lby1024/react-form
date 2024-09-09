@@ -6,7 +6,7 @@ import { ListItem } from './compoment/ListItem';
 const config: ListConfig = {
   formItem: <Input placeholder='placeholder...' />,
   rules: [required()],
-  listRules: [min(2, '不能少于两项')]
+  listRules: [min(1, '不能少于1项')]
 }
 
 let num = 1

@@ -1,5 +1,5 @@
 import { cloneElement, useMemo } from "react"
-import { createName, getItem, getValue } from "../tools"
+import { getItem, getValue } from "../tools"
 import { UseFormListProps } from "../types"
 import { useListCheck } from "./useListCheck"
 
@@ -15,7 +15,7 @@ export const useListBind = (
 
   const change = (index: number) => (e: any) => {
     arr[index] = getValue(e, config.valueName)
-    onChange([...arr], index)
+    onChange(arr, index)
   }
 
   const cloneItem = (index: number) => {
@@ -40,7 +40,7 @@ export const useListBind = (
 
     for (let i = 0; i < arr.length; i++) {
       items.push({
-        name: createName(),
+        name: i,
         formItem: cloneItem(i),
         label: config.label,
         error: errs[i]

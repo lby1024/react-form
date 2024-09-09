@@ -60,18 +60,21 @@ export const useFormList = (props: UseFormListProps) => {
     errList.splice(index, 1)
     setArr([...arr])
     setErrList([...errList])
+    setErr('')
     props.onChange && props.onChange(arr)
   }
 
   const push = (value?: any) => {
     setArr([...arr, value])
     setErrList([...errList, undefined])
+    setErr('')
     props.onChange && props.onChange(arr)
   }
 
   const unshift = (value?: any) => {
     setArr([value, ...arr])
     setErrList([undefined, ...errList])
+    setErr('')
     props.onChange && props.onChange(arr)
   }
 
@@ -83,7 +86,8 @@ export const useFormList = (props: UseFormListProps) => {
     push,
     unshift,
     remove,
-    error: err
+    error: err,
+    getFormData: arr,
   }
 
 

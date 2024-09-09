@@ -66,6 +66,7 @@ export const useForm = (props: UseFormProps) => {
     checkForm: checker.checkForm,
     setFormData,
     reset,
+    getFormData: data,
     items
   }
 }
