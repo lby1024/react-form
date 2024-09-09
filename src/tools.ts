@@ -20,13 +20,6 @@ import { Config, ConfigItem, Obj, UseFormProps } from "./types"
 //   return o
 // }
 
-
-// let i = 0
-// export function createName() {
-//   const time = new Date().getTime()
-//   return `${time}-${i++}`
-// }
-
 /**
  * 对象转数组
  */
@@ -80,13 +73,22 @@ export function initData(props: UseFormProps) {
   return res
 }
 
-export function isFunction(value: any) {
-  return typeof value === 'function';
-}
-
-
 export function getValue(e: any, valueName = 'value') {
   if (!e) return e
   if (!e.target) return e
   return e.target[valueName]
+}
+
+let i = 0
+export function createName() {
+  const time = new Date().getTime()
+  return `${time}-${i++}`
+}
+
+export function isFunction(value: any) {
+  return typeof value === 'function';
+}
+
+export function isArray(value: any) {
+  return Array.isArray(value);
 }

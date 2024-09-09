@@ -17,7 +17,7 @@ export const useListCheck = (
   const checkForm = useCurrent(async ({ arr }) => {
     let hasError = false
     let error
-    let errorList
+    let errs
 
     if (listRules) {
       error = await check(arr, listRules)
@@ -26,19 +26,20 @@ export const useListCheck = (
     }
 
     if (rules) {
-      errorList = arr.map(async (value: any) => {
-        const err = await check(value, rules)
+      errs = []
+      for (let i = 0; i < arr.length; i++) {
+        const err = await check(arr[i], rules)
         if (err) hasError = true
-        return err
-      })
-      setErrorList(errorList)
+        errs[i] = err
+      }
+      setErrorList(errs)
     }
 
     return {
       hasError,
       error,
       errorList,
-      firstError: getFirstError(error, errorList)
+      firstError: getFirstError(error, errs)
     }
   }, { arr })
 

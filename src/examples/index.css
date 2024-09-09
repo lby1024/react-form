@@ -46,3 +46,8 @@
 Button {
   margin-right: 9px;
 }
+
+.err {
+  color: deeppink;
+  font-size: 12px;
+}
