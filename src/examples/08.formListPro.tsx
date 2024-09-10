@@ -1,34 +1,45 @@
-// import { FormListConfig, useFormList } from '@lby/react-form';
-// import { Button, Card, Flex } from 'antd'
-// import { msg } from './utils';
-// import { ClassForm } from './compoment/ClassForm';
+import { useFormList, ListConfig } from '@lby/react-form';
+import { Button, Card, Flex, Typography } from 'antd'
+import { msg } from './utils';
+import { ClassForm } from './compoment/ClassForm';
+import { MyCard } from './compoment/Card';
 
-// const config: FormListConfig = {
-//   subForm: <ClassForm />,
-// };
+const config: ListConfig = {
+  subForm: <ClassForm />,
+};
 
-// export default () => {
+export default () => {
 
-//   const { items, submit, push, remove } = useFormList({
-//     config,
-//     onSuccess: (res: any) => msg(res),
-//     onFail: (err: string) => msg(err),
-//   })
+  const { items, submit, push, remove, getFormData } = useFormList({
+    config,
+    onSuccess: (res: any) => msg(res),
+    onFail: (err: string) => msg(err),
+  })
 
-//   const formItems = items.map((item, i) => (
-//     <Card
-//       key={item.name}
-//       extra={<Button type='link' onClick={() => remove(i)} >移除</Button>}>
-//       {item.formItem}
-//     </Card>
-//   ))
+  const formItems = items.map((item, i) => (
+    <MyCard
+      key={item.name}
+      formItem={item.formItem}
+      onDelete={() => remove(i)}
+    />
+  ))
 
-//   return (
-//     <Flex vertical gap={32} style={{ width: 500 }}>
-//       {formItems}
-//       <Button onClick={submit} type='primary' >submit</Button>
-//       <Button onClick={() => push()} >add</Button>
-//     </Flex>
-//   )
+  return (
+    <Flex vertical gap={32} style={{ width: 600 }}>
+      {formItems}
+      <Button onClick={submit} type='primary' >submit</Button>
+      <Button onClick={() => push()} >添加班级</Button>
 
-// }
+      <Typography>
+        <pre>{
+          JSON.stringify(
+            getFormData(),
+            (k, v) => v === undefined ? 'undefined' : v,
+            2
+          )
+        }</pre>
+      </Typography>
+    </Flex>
+  )
+
+}

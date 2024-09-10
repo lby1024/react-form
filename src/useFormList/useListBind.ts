@@ -18,7 +18,7 @@ export const useListBind = (
     setArr(list)
 
     if (useFormListProps.onChange) {
-      useFormListProps.onChange(arr, index)
+      useFormListProps.onChange(list, index)
     }
 
     const rules = config.rules || []

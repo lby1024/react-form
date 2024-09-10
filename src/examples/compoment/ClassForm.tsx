@@ -1,53 +1,58 @@
-import { Input } from "antd"
-import { FC, useEffect } from "react"
-import { FormItem } from "./FormItem"
-// import { NameList } from "./nameList"
-import { Config, required, useForm } from "@lby/react-form"
+import { Config, min, required, useForm } from "@lby/react-form";
+import { Button, Input } from "antd";
+import { FullName } from "./FullName";
+import { NameList } from "./nameList";
+import { msg } from "../utils";
+import { FormItem } from "./FormItem";
+import { FC, useEffect } from "react";
 
-export const classConfig: Config = {
-  class: {
+const config: Config = {
+  className: {
     label: '班级',
-    formItem: <Input placeholder="班级名称" />,
+    formItem: <Input placeholder="class" />,
     rules: [required()]
   },
-  // names: {
-  //   label: '名单',
-  //   formList: <NameList />,
-  // }
+  teacher: {
+    label: '老师',
+    subForm: <FullName />
+  },
+  students: {
+    label: '学生',
+    formList: <NameList />,
+    rules: [required('最少1个学生'), min(1, '最少1个学生')]
+  }
 }
 
 
-interface ClassFormProps {
+interface FullNameProps {
   value?: any,
   onChange?: Function,
-  subscrible?: Function
+  father?: any
 }
 
-export const ClassForm: FC<ClassFormProps> = (props) => {
-
+export const ClassForm: FC<FullNameProps> = (props) => {
   const form = useForm({
-    config: classConfig,
-    onChange: props.onChange
+    config,
+    onChange: props.onChange,
+    father: props.father
   })
 
   useEffect(() => {
     form.setFormData(props.value)
   }, [props.value])
 
-  useEffect(() => {
-    // if (!props.subscrible) return
-    // const unSub = props.subscrible(form.checkForm)
-    // return () => unSub()
-  }, [])
-
   const formItems = form.items.map(item => (
     <FormItem
       key={item.name}
       label={item.label}
-      error={item.error}
       formItem={item.formItem}
+      error={item.error}
     />
   ))
 
-  return formItems
+  return (
+    <div>
+      {formItems}
+    </div>
+  )
 }

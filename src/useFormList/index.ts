@@ -45,29 +45,44 @@ export const useFormList = (props: UseFormListProps) => {
     }
   }
 
-  const remove = (index: number) => {
+  const remove = async (index: number) => {
     arr.splice(index, 1)
-    errList.splice(index, 1)
     setArr([...arr])
+
+    if (props.onChange) {
+      props.onChange(arr)
+    }
+
+    errList.splice(index, 1)
     setErrList([...errList])
-    setErr('')
-    props.onChange && props.onChange(arr)
+
+    const err: any = await checker.checkItem(arr, config.listRules || [])
+    setErr(err)
   }
 
-  const push = (value?: any) => {
+  const push = async (value?: any) => {
     const list = [...arr, value]
     setArr(list)
+
+    if (props.onChange) {
+      props.onChange(list)
+    }
+
     setErrList([...errList, undefined])
-    setErr('')
-    props.onChange && props.onChange(list)
+    const err: any = await checker.checkItem(list, config.listRules || [])
+    setErr(err)
   }
 
-  const unshift = (value?: any) => {
+  const unshift = async (value?: any) => {
     const list = [value, ...arr]
     setArr(list)
+
+    if (props.onChange) {
+      props.onChange(list)
+    }
     setErrList([undefined, ...errList])
-    setErr('')
-    props.onChange && props.onChange(list)
+    const err: any = await checker.checkItem(list, config.listRules || [])
+    setErr(err)
   }
 
   return {
@@ -81,9 +96,9 @@ export const useFormList = (props: UseFormListProps) => {
     push,
     unshift,
     remove,
-    err,
+    error: err,
     getErrList,
-    getFormData: arr,
+    getFormData: getArr,
   }
 }
 
