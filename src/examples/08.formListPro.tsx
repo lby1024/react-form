@@ -1,5 +1,5 @@
 import { useFormList, ListConfig } from '@lby/react-form';
-import { Button, Card, Flex, Typography } from 'antd'
+import { Button, Flex, Typography } from 'antd'
 import { msg } from './utils';
 import { ClassForm } from './compoment/ClassForm';
 import { MyCard } from './compoment/Card';
