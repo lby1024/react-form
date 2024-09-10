@@ -1,11 +1,11 @@
-import { ListConfig, useFormList } from '@lby/react-form';
-import { Button, Flex } from 'antd'
-import { FullName } from './FullName';
+import { ListConfig, min, required, useFormList } from '@lby/react-form';
+import { Button, Flex, Input } from 'antd'
 import { ListItem } from './ListItem';
 import { FC, useEffect } from 'react';
 
 export const nameListConfig: ListConfig = {
-  subForm: <FullName />,
+  formItem: <Input placeholder='name...' />,
+  rules: [required()],
 };
 
 interface NameListProps {
@@ -14,7 +14,7 @@ interface NameListProps {
   father?: any
 }
 
-export const NameList: FC<NameListProps> = (props) => {
+export const NameListSimple: FC<NameListProps> = (props) => {
 
   const form = useFormList({
     father: props.father,

@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { UseFormProps } from "../types"
 import { initData } from "../tools"
 
 export function useFormData<F>(props: UseFormProps) {
   const { config } = props
   const [data, setData] = useState(initData(props))
+  const formDataRef = useRef(data)
 
   const formData = useMemo(() => {
     let filteredFormData: any = {}
@@ -20,5 +21,13 @@ export function useFormData<F>(props: UseFormProps) {
     return filteredFormData as F
   }, [data])
 
-  return [formData, setData] as const
+  useEffect(() => {
+    formDataRef.current = formData
+  }, [formData])
+
+  function getData() {
+    return formDataRef.current
+  }
+
+  return [formData, setData, getData] as const
 }

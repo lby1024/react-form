@@ -5,17 +5,27 @@ import { useListCheck } from "./useListCheck"
 
 export const useListBind = (
   useFormListProps: UseFormListProps,
-  [arr, setArr]: [any[], Function],
-  [errs, setErrs]: [any[], Function],
+  [arr, setArr, getArr]: [any[], Function, Function],
+  [errs, setErrs, getErrs]: [any[], Function, Function],
   checker: ReturnType<typeof useListCheck>,
-  onChange: (arr: any[], index: number) => void
 ) => {
 
   const { config } = useFormListProps
 
-  const change = (index: number) => (e: any) => {
-    arr[index] = getValue(e, config.valueName)
-    onChange(arr, index)
+  const change = (index: number) => async (e: any) => {
+    const list = getArr()
+    list[index] = getValue(e, config.valueName)
+    setArr(list)
+
+    if (useFormListProps.onChange) {
+      useFormListProps.onChange(arr, index)
+    }
+
+    const rules = config.rules || []
+    const err = await checker.checkItem(list[index], rules)
+    const errs = getErrs()
+    errs[index] = err
+    setErrs([...errs])
   }
 
   const cloneItem = (index: number) => {
@@ -37,8 +47,9 @@ export const useListBind = (
 
   return useMemo(() => {
     const items = []
+    const list = arr || []
 
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < list.length; i++) {
       items.push({
         name: i,
         formItem: cloneItem(i),

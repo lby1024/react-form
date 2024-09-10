@@ -4,6 +4,7 @@ import { initData } from "../tools";
 import { useCheck } from "./useCheck";
 import { useBind } from "./useBind";
 import { useFormData } from "./useFormData";
+import { useStatePro } from "../hooks/useStatePro";
 
 
 export const useForm = (props: UseFormProps) => {
@@ -11,32 +12,21 @@ export const useForm = (props: UseFormProps) => {
   type N = keyof typeof config // 表单属性: 'username' | 'password' | 'age'
   type F = FormData<typeof config>
   type E = Err<typeof config>
-  const [data, setData] = useFormData<F>(props)
-  const [error, setError] = useState<E>({})
+  const [data, setData, getData] = useFormData<F>(props)
+  const [error, setError, getErrs] = useStatePro<E>({})
+
   const checker = useCheck(
     props,
     [data, setData],
     [error, setError]
   )
 
-  const onChange = async (formData: F, name: string) => {
-    setData(formData)
-    props.onChange && props.onChange(formData, name)
-    const err = await checker.checkItem(name)
-    setError({
-      ...error,
-      [name]: err
-    })
-  }
-
   const items = useBind(
     props,
-    data,
-    error,
+    [data, setData, getData],
+    [error, setError, getErrs],
     checker,
-    onChange,
   )
-
 
   const setFormData = (formData: F) => {
     setData({

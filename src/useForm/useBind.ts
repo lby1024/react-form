@@ -1,22 +1,28 @@
 import { cloneElement, useMemo } from "react"
-import { ConfigItem, Obj, UseFormProps } from "../types"
+import { UseFormProps } from "../types"
 import { useCheck } from "./useCheck"
 import { getItem, getValue } from "../tools"
 
 
 export const useBind = (
   useFormProps: UseFormProps,
-  formData: any,
-  error: any,
+  [formData, setFormData, getFormData]: [any, Function, Function],
+  [error, setErrs, getErrs]: [any, Function, Function],
   checker: ReturnType<typeof useCheck>,
-  onChange: Function
 ) => {
 
   const { config, father } = useFormProps
 
-  const change = (name: string) => (e: any) => {
-    formData[name] = getValue(e, config[name].valueName)
-    onChange(formData, name)
+  const change = (name: string) => async (e: any) => {
+    const fData = getFormData()
+    fData[name] = getValue(e, config[name].valueName)
+
+    setFormData(fData)
+    useFormProps.onChange && useFormProps.onChange(fData, name)
+    const err = await checker.checkItem(name, fData)
+    const errs = getErrs()
+    errs[name] = err
+    setErrs({ ...errs })
   }
 
   const cloneItem = (name: string) => {

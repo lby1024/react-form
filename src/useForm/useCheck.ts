@@ -1,3 +1,4 @@
+import { FormData } from './../types';
 import { useEffect, useRef } from "react"
 import { CheckFn, Obj, UseFormProps } from "../types"
 import { isFunction } from "../tools"
@@ -17,13 +18,13 @@ export const useCheck = (
     let firstError
 
     for (let name in formData) {
-      error[name] = await checkItem(name)
-
+      error[name] = await checkItem(name, formData)
       if (error[name]) {
         hasError = true
         if (!firstError) firstError = error[name]
       }
     }
+
     setError(error)
 
     return {
@@ -47,18 +48,11 @@ export const useCheck = (
     return () => unSub()
   }, [])
 
-  /**
-   * useFn 解决获取不到formData最新值
-   * checkItem用法: checkItem('nickName')
-   */
-  const checkItem = useCurrent(async (dep, args) => {
-    const { formData } = dep
-    const [name] = args
-
+  const checkItem = async (name: string, formData: any) => {
     const rules = config[name].rules || []
     const err = await check(name, formData, rules)
     return err as string
-  }, { formData })
+  }
 
   async function submit() {
     let hasError = false

@@ -3,11 +3,13 @@ import { UseFormListProps } from "../types";
 import { useListCheck } from "./useListCheck";
 import { useListBind } from "./useListBind";
 import { isArray } from "../tools";
+import { useCurrent } from "../hooks/useCurrent";
+import { useStatePro } from "../hooks/useStatePro";
 
 export const useFormList = (props: UseFormListProps) => {
   const { config } = props
-  const [arr, setArr] = useState<any[]>(arrInit(props))
-  const [errList, setErrList] = useState<any[]>(errorInit(props)) // rules
+  const [arr, setArr, getArr] = useStatePro<any[]>(arrInit(props))
+  const [errList, setErrList, getErrList] = useStatePro<any[]>(errorInit(props)) // rules
   const [err, setErr] = useState('') // listRules
 
   const checker = useListCheck(
@@ -17,25 +19,15 @@ export const useFormList = (props: UseFormListProps) => {
     [err, setErr]
   )
 
-  const onChange = async (arr: any[], index: number) => {
-    setArr(arr)
-    props.onChange && props.onChange(arr, index)
-    const rules = config.rules || []
-    const err = await checker.checkItem(arr[index], rules)
-    errList[index] = err
-    setErrList([...errList])
-  }
-
   const items = useListBind(
     props,
-    [arr, setArr],
-    [errList, setErrList],
+    [arr, setArr, getArr],
+    [errList, setErrList, getErrList],
     checker,
-    onChange,
   )
 
   const setFormList = (arr: any) => {
-    setArr(arr)
+    setArr(arr || [])
     setErrList([])
     setErr('')
   }
@@ -65,17 +57,19 @@ export const useFormList = (props: UseFormListProps) => {
   }
 
   const push = (value?: any) => {
-    setArr([...arr, value])
+    const list = [...arr, value]
+    setArr(list)
     setErrList([...errList, undefined])
     setErr('')
-    props.onChange && props.onChange(arr)
+    props.onChange && props.onChange(list)
   }
 
   const unshift = (value?: any) => {
-    setArr([value, ...arr])
+    const list = [value, ...arr]
+    setArr(list)
     setErrList([undefined, ...errList])
     setErr('')
-    props.onChange && props.onChange(arr)
+    props.onChange && props.onChange(list)
   }
 
   return {

@@ -5,11 +5,7 @@ import { ListItem } from './compoment/ListItem';
 
 const config: ListConfig = {
   formItem: <Input placeholder='placeholder...' />,
-  rules: [required()],
-  listRules: [min(2, '不能少于2项')]
 }
-
-let num = 1
 
 export default () => {
 
@@ -32,8 +28,8 @@ export default () => {
     <Flex vertical gap={32} style={{ width: 300 }}>
       {formItems}
       <Button onClick={submit} type='primary' >submit</Button>
-      <Button onClick={() => push(num++)} >add</Button>
-      <Button onClick={() => unshift(num++)} >add at head</Button>
+      <Button onClick={() => push()} >add</Button>
+      <Button onClick={() => unshift()} >add at head</Button>
       <div className='err'>{error}</div>
     </Flex>
   )
