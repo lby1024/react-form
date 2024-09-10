@@ -1,5 +1,5 @@
 import { cloneElement, useMemo } from "react"
-import { UseFormProps } from "../types"
+import { Obj, UseFormProps } from "../types"
 import { useCheck } from "./useCheck"
 import { getItem, getValue } from "../tools"
 
@@ -16,9 +16,12 @@ export const useBind = (
   const change = (name: string) => async (e: any) => {
     const fData = getFormData()
     fData[name] = getValue(e, config[name].valueName)
-
     setFormData(fData)
-    useFormProps.onChange && useFormProps.onChange(fData, name)
+
+    if (useFormProps.onChange) {
+      useFormProps.onChange(fData, name)
+    }
+
     const err = await checker.checkItem(name, fData)
     const errs = getErrs()
     errs[name] = err

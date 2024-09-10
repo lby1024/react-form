@@ -43,6 +43,7 @@ export default () => {
       gender: 'other',
       other: 'AI'
     })
+    form.setError({})
   }
   /**
    * 如果gender发生变化就修改nickName

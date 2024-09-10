@@ -10,8 +10,16 @@ export const useStatePro = <T>(value: T) => {
 
   // 因为getValue能获取到最新值,所以不需要传回调函数了
   const setValue = (value: any) => {
-    setV(value)
-    vRef.current = isFunction(value) ? value(vRef.current) : value
+    if (isFunction(value)) {
+      setV(v => {
+        const newValue = value(v)
+        vRef.current = newValue
+        return newValue
+      })
+    } else {
+      setV(value)
+      vRef.current = value
+    }
   }
 
   return [v, setValue, getValue] as const

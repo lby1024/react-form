@@ -28,8 +28,6 @@ export const useFormList = (props: UseFormListProps) => {
 
   const setFormList = (arr: any) => {
     setArr(arr || [])
-    setErrList([])
-    setErr('')
   }
 
   const reset = () => {
@@ -75,16 +73,18 @@ export const useFormList = (props: UseFormListProps) => {
   return {
     items,
     submit,
+    checkFormList: checker.checkForm,
     reset,
     setFormList,
+    setErrList,
+    setErr,
     push,
     unshift,
     remove,
-    error: err,
+    err,
+    getErrList,
     getFormData: arr,
   }
-
-
 }
 
 function arrInit(props: UseFormListProps) {

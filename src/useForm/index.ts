@@ -17,8 +17,8 @@ export const useForm = (props: UseFormProps) => {
 
   const checker = useCheck(
     props,
-    [data, setData],
-    [error, setError]
+    [data, setData, getData],
+    [error, setError, getErrs],
   )
 
   const items = useBind(
@@ -33,7 +33,6 @@ export const useForm = (props: UseFormProps) => {
       ...data,
       ...formData
     })
-    setError({})
   }
 
 
@@ -55,6 +54,7 @@ export const useForm = (props: UseFormProps) => {
     submit,
     checkForm: checker.checkForm,
     setFormData,
+    setError,
     reset,
     getFormData: data,
     items

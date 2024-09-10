@@ -2,20 +2,20 @@ import { FormData } from './../types';
 import { useEffect, useRef } from "react"
 import { CheckFn, Obj, UseFormProps } from "../types"
 import { isFunction } from "../tools"
-import { useCurrent } from "../hooks/useCurrent"
 
 
 export const useCheck = (
   useFormProps: UseFormProps,
-  [formData, setData]: [Obj, Function],
-  [error, setError]: [Obj, Function]
+  [data, setData, getData]: [Obj, Function, Function],
+  [error, setError, getError]: [Obj, Function, Function]
 ) => {
   const { config, father } = useFormProps
 
-  const checkForm: CheckFn = useCurrent(async ({ formData }) => {
+  const checkForm = async () => {
     let error: Obj = {}
     let hasError = false
     let firstError
+    const formData = getData()
 
     for (let name in formData) {
       error[name] = await checkItem(name, formData)
@@ -32,8 +32,7 @@ export const useCheck = (
       error,
       firstError
     }
-
-  }, { formData })
+  }
 
   const listRef = useRef<CheckFn[]>([checkForm])
   /**
