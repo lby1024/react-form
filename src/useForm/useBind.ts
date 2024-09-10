@@ -35,6 +35,7 @@ export const useBind = (
       [valueName]: formData[name],
       onChange: change(name),
       name,
+      key: name
     }
     // 如果是<input/>, 就不传入subscrible
     if (!config[name].formItem) {

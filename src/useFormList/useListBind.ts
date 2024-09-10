@@ -34,7 +34,8 @@ export const useListBind = (
     const props = {
       [valueName]: arr[index],
       onChange: change(index),
-      name,
+      name: index,
+      key: index
     }
     // 如果是<input/>, 就不传入subscrible
     if (!config.formItem) {

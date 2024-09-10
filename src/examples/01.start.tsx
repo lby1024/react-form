@@ -23,15 +23,11 @@ export default () => {
     onFail: err => msg(err)
   })
 
-  const formItems = items.map(item => (
-    <div key={item.name} >
-      {item.formItem}
-    </div>
-  ))
-
   return (
     <Flex vertical gap={21} style={{ width: 300 }}>
-      {formItems}
+      {
+        items.map(item => item.formItem)
+      }
       <Button onClick={submit} >登录</Button>
     </Flex>
   )
