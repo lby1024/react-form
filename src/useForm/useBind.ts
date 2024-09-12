@@ -1,3 +1,4 @@
+import { Config } from '@lby/react-form';
 import { cloneElement, useMemo } from "react"
 import { Obj, UseFormProps } from "../types"
 import { useCheck } from "./useCheck"
@@ -31,7 +32,7 @@ export const useBind = (
   const cloneItem = (name: string) => {
     const { valueName = 'value' } = config[name]
 
-    const props = {
+    const props: Obj = {
       [valueName]: formData[name],
       onChange: change(name),
       name,

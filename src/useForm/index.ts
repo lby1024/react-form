@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { UseFormProps, FormData, Err } from "../types";
+import { UseFormProps, FormData, Err, Config } from "../types";
 import { initData } from "../tools";
 import { useCheck } from "./useCheck";
 import { useBind } from "./useBind";
@@ -8,10 +7,13 @@ import { useStatePro } from "../hooks/useStatePro";
 
 
 export const useForm = (props: UseFormProps) => {
+  props.config = configInit(props.config)
   const { config } = props
+
   type N = keyof typeof config // 表单属性: 'username' | 'password' | 'age'
   type F = FormData<typeof config>
   type E = Err<typeof config>
+
   const [data, setData, getData] = useFormData<F>(props)
   const [error, setError, getErrs] = useStatePro<E>({})
 
@@ -59,4 +61,21 @@ export const useForm = (props: UseFormProps) => {
     getFormData: data,
     items
   }
+}
+
+
+function configInit(config: any) {
+  if (typeof config === 'function') {
+
+    config.create = function () {
+      if (!config.that) {
+        config.that = new config()
+      }
+      return config.that
+    }
+
+    return config.create().config as Config
+  }
+
+  return config as Config
 }

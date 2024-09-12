@@ -1,3 +1,4 @@
+import { FormDecorator } from "./useForm/decorator"
 
 export type Obj = { [key: string]: any }
 
@@ -17,7 +18,7 @@ export type Config = {
 }
 
 export interface UseFormProps {
-  config: Config,
+  config: any,
   father?: any,
   initialValue?: any,
   onSuccess?: (...arg: any) => any, // 提交成功触发

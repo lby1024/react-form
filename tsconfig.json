@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true, // <------开启装饰器语法
+    "strictNullChecks": false, // <--------为true是定义class必须给属性赋值
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
