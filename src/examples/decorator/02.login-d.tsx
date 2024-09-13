@@ -25,7 +25,6 @@ const initialValue = {
 }
 
 export default () => {
-
   const form = useForm({
     config: ConfigImpl,
     initialValue,

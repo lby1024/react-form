@@ -1,24 +1,23 @@
-import { useForm, required, Config } from '@lby/react-form';
+import { useForm, required, formItem, label, rules } from '@lby/react-form';
 import { Button, Flex, Input } from 'antd'
 import { msg } from './utils';
 
-const config: Config = {
-  email: {
-    label: '邮箱',
-    formItem: <Input placeholder='e-mail' />,
-    rules: [required('请填写邮箱')],
-  },
-  parssword: {
-    label: '密码',
-    formItem: <Input placeholder='password' type='password' />,
-    rules: [required('请填写密码')]
-  }
+class ConfigImpl {
+  @formItem(<Input placeholder='e-mail' />)
+  @label('邮箱')
+  @rules(required('请填写邮箱'))
+  email: string
+
+  @formItem(<Input placeholder='password' type='password' />)
+  @label('密码')
+  @rules(required('请填写密码'))
+  password: string
 }
 
 export default () => {
 
-  const { items, submit } = useForm({
-    config,
+  const form = useForm({
+    config: ConfigImpl,
     onSuccess: data => msg(data),
     onFail: err => msg(err)
   })
@@ -26,9 +25,9 @@ export default () => {
   return (
     <Flex vertical gap={21} style={{ width: 300 }}>
       {
-        items.map(item => item.formItem)
+        form.items.map(item => item.formItem)
       }
-      <Button onClick={submit} >登录</Button>
+      <Button onClick={form.submit} >登录</Button>
     </Flex>
   )
 }
