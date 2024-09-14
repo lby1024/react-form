@@ -1,7 +1,7 @@
-# @lby/react-form
+# @by-l/react-form
 
-[![NPM version](https://img.shields.io/npm/v/@lby/react-form.svg?style=flat)](https://npmjs.org/package/@lby/react-form)
-[![NPM downloads](http://img.shields.io/npm/dm/@lby/react-form.svg?style=flat)](https://npmjs.org/package/@lby/react-form)
+[![NPM version](https://img.shields.io/npm/v/@by-l/react-form.svg?style=flat)](https://npmjs.org/package/@by-l/react-form)
+[![NPM downloads](http://img.shields.io/npm/dm/@by-l/react-form.svg?style=flat)](https://npmjs.org/package/@by-l/react-form)
 
 A react library developed with dumi
 

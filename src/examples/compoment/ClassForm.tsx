@@ -1,28 +1,30 @@
-import { Config, min, required, useForm } from "@lby/react-form";
-import { Button, Input } from "antd";
+import { Config, formItem, formList, label, min, required, rules, subForm, useForm } from "@by-l/react-form";
+import { Input } from "antd";
 import { FullName } from "./FullName";
 import { NameList } from "./nameList";
-import { msg } from "../utils";
 import { FormItem } from "./FormItem";
 import { FC, useEffect } from "react";
 
-const config: Config = {
-  className: {
-    label: '班级',
-    formItem: <Input placeholder="class" />,
-    rules: [required()]
-  },
-  teacher: {
-    label: '老师',
-    subForm: <FullName />
-  },
-  students: {
-    label: '学生',
-    formList: <NameList />,
-    rules: [required('最少1个学生'), min(1, '最少1个学生')]
-  }
+type N = {
+  firstName: string,
+  lastName: string
 }
 
+class ConfigImpl {
+  @formItem(<Input placeholder="class" />)
+  @label('班级')
+  @rules(required())
+  className: string
+
+  @subForm(<FullName />)
+  @label('老师')
+  teacher: N
+
+  @formList(<NameList />)
+  @label('学生')
+  @rules(required('最少1个学生'), min(1, '最少1个学生'))
+  students: N[]
+}
 
 interface FullNameProps {
   value?: any,
@@ -32,7 +34,7 @@ interface FullNameProps {
 
 export const ClassForm: FC<FullNameProps> = (props) => {
   const form = useForm({
-    config,
+    config: ConfigImpl,
     onChange: props.onChange,
     father: props.father
   })

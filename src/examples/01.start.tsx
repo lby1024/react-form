@@ -1,4 +1,4 @@
-import { useForm, required, formItem, label, rules } from '@lby/react-form';
+import { useForm, required, formItem, label, rules } from '@by-l/react-form';
 import { Button, Flex, Input } from 'antd'
 import { msg } from './utils';
 

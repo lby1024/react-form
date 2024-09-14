@@ -13,10 +13,10 @@
       "@@/*": [
         ".dumi/tmp/*"
       ],
-      "@lby/react-form": [
+      "@by-l/react-form": [
         "src"
       ],
-      "@lby/react-form/*": [
+      "@by-l/react-form/*": [
         "src/*",
         "*"
       ]

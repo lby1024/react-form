@@ -1,4 +1,4 @@
-import { useForm, required, min, password, email, Config } from '@lby/react-form';
+import { useForm, required, min, password, email, Config } from '@by-l/react-form';
 import { Button, Checkbox, Input } from 'antd'
 import './index.css'
 import { msg } from './utils';

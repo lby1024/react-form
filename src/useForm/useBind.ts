@@ -1,4 +1,4 @@
-import { Config } from '@lby/react-form';
+import { Config } from '@by-l/react-form';
 import { cloneElement, useMemo } from "react"
 import { Obj, UseFormProps } from "../types"
 import { useCheck } from "./useCheck"

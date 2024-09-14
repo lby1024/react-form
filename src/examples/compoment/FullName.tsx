@@ -1,6 +1,6 @@
 import { Flex, Input } from "antd"
 import { FC, useEffect } from "react"
-import { formItem, required, rules, useForm } from "@lby/react-form"
+import { formItem, required, rules, useForm } from "@by-l/react-form"
 import '../index.css'
 
 class ConfigImpl {

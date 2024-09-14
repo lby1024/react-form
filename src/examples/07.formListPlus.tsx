@@ -1,4 +1,4 @@
-import { Config, ListConfig, min, required, useFormList } from '@lby/react-form';
+import { Config, ListConfig, min, required, useFormList } from '@by-l/react-form';
 import { Button, Flex } from 'antd'
 import { msg } from './utils';
 import { ListItem } from './compoment/ListItem';

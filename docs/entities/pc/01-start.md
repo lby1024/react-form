@@ -7,13 +7,13 @@ toc: content
 
 ## 下载
 ```
-npm i @lby/react-form
+npm i @by-l/react-form
 ```
 
 ## 使用
 
 ```ts
-import { useForm, required, formItem, label, rules } from '@lby/react-form';
+import { useForm, required, formItem, label, rules } from '@by-l/react-form';
 
 class ConfigImpl {
   @formItem(<Input placeholder='e-mail' />)

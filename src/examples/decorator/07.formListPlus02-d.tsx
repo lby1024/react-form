@@ -1,9 +1,9 @@
 import { Button, Input } from "antd"
 import { required, min, formItem, label, rules, subForm, formList, useForm } from "@by-l/react-form"
 import { FullName } from "../compoment/FullName"
-import { NameListSimple } from "../compoment/nameListSimple"
 import { FormItem } from "../compoment/FormItem"
 import { msg } from "../utils"
+import { NameList } from "../compoment/nameList"
 
 class ConfigImpl {
 
@@ -16,9 +16,9 @@ class ConfigImpl {
   @label('老师')
   teacher: object
 
-  @formList(<NameListSimple />)
+  @formList(<NameList />)
   @label('学生')
-  @rules(required('最少一个学生'), min(1, '最少一个学生'))
+  @rules(required('最少3个学生'), min(3, '最少3个学生'))
   students: string[]
 }
 

@@ -1,5 +1,5 @@
 import { password } from './rules';
-import { email, label } from '@lby/react-form';
+import { email, label } from '@by-l/react-form';
 export type Obj = { [key: string]: any }
 
 export type ConfigItem = {

@@ -1,6 +1,6 @@
-import { email, min, password, required } from "@lby/react-form/rules";
-import { useForm } from "@lby/react-form/useForm";
-import { formItem, label, rules } from "@lby/react-form/useForm/decorator";
+import { email, min, password, required } from "@by-l/react-form/rules";
+import { useForm } from "@by-l/react-form/useForm";
+import { formItem, label, rules } from "@by-l/react-form/useForm/decorator";
 import { Button, Input } from "antd";
 import { FormItem } from "../compoment/FormItem";
 import { msg } from "../utils";

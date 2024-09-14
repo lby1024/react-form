@@ -1,4 +1,4 @@
-import { useFormList, ListConfig } from '@lby/react-form';
+import { useFormList, ListConfig } from '@by-l/react-form';
 import { Button, Flex, Typography } from 'antd'
 import { msg } from './utils';
 import { ClassForm } from './compoment/ClassForm';

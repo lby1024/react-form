@@ -1,4 +1,4 @@
-import { useForm, required, formItem, label, rules, subForm } from '@lby/react-form';
+import { useForm, required, formItem, label, rules, subForm } from '@by-l/react-form';
 import { Button, Input } from 'antd'
 import { FullName } from '../compoment/FullName';
 import { FormItem } from '../compoment/FormItem';

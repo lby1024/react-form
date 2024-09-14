@@ -1,4 +1,4 @@
-import { useForm, required, min, password, email, Config } from '@lby/react-form';
+import { useForm, required, min, password, email, Config } from '@by-l/react-form';
 import { Button, Input } from 'antd'
 import { msg } from './utils';
 import { FormItem } from './compoment/FormItem';

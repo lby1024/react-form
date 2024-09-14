@@ -1,4 +1,4 @@
-import { ListConfig, useFormList } from '@lby/react-form';
+import { ListConfig, useFormList } from '@by-l/react-form';
 import { Button, Flex } from 'antd'
 import { FullName } from './FullName';
 import { ListItem } from './ListItem';
