@@ -1,7 +1,7 @@
 ---
 group:
   title: 装饰器风格  
-  order: 2
+  order: 1
 title: 注册
 order: 30
 ---

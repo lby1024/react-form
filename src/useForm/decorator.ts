@@ -47,6 +47,14 @@ export const valueName = (vName: string) => (prototype: any, name: string) => {
   )
 }
 
+export const show = (cb: Function) => (prototype: any, name: string) => {
+  setConfig(
+    prototype,
+    name,
+    ['show', cb]
+  )
+}
+
 
 
 function setConfig(prototype: any, name: string, [key, value]: [string, any]) {

@@ -6,13 +6,13 @@ import { useFormData } from "./useFormData";
 import { useStatePro } from "../hooks/useStatePro";
 
 
-export const useForm = (props: UseFormProps) => {
+export const useForm = <T>(props: UseFormProps) => {
   props.config = configInit(props.config)
   const { config } = props
 
-  type N = keyof typeof config // 表单属性: 'username' | 'password' | 'age'
-  type F = FormData<typeof config>
-  type E = Err<typeof config>
+  type N = keyof T // 表单属性: 'username' | 'password' | 'age'
+  type F = FormData<T>
+  type E = Err<T>
 
   const [data, setData, getData] = useFormData<F>(props)
   const [error, setError, getErrs] = useStatePro<E>({})
@@ -30,11 +30,24 @@ export const useForm = (props: UseFormProps) => {
     checker,
   )
 
+  const clearError = (name?: N) => {
+    if (!name) {
+      setError({})
+      return
+    }
+    setError((err: E) => {
+      err[name] = undefined
+      return err
+    })
+  }
+
   const setFormData = (formData: F) => {
     setData({
       ...data,
       ...formData
     })
+
+    return { clearError }
   }
 
 
@@ -64,7 +77,7 @@ export const useForm = (props: UseFormProps) => {
 }
 
 
-function configInit(config: any) {
+function configInit(config: any): Config {
   if (typeof config === 'function') {
 
     config.create = function () {
@@ -74,8 +87,8 @@ function configInit(config: any) {
       return config.that
     }
 
-    return config.create().config as Config
+    return config.create().config
   }
 
-  return config as Config
+  return config
 }

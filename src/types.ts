@@ -1,5 +1,5 @@
-import { FormDecorator } from "./useForm/decorator"
-
+import { password } from './rules';
+import { email, label } from '@lby/react-form';
 export type Obj = { [key: string]: any }
 
 export type ConfigItem = {
