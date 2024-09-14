@@ -1,7 +1,7 @@
 ---
 group:
-  title: json风格  
-  order: 2
+  title: 装饰器风格  
+  order: 1
 title: 动态增减
 order: 60
 toc: content
@@ -15,4 +15,4 @@ toc: content
 <code src='../../../src/examples/06.formList.02.tsx' ></code>
 
 ## 嵌套 
-<code src='../../../src/examples/06.formList.03.tsx' ></code>
+<code src='../../../src/examples/decorator/06.formList.03-d.tsx' ></code>
