@@ -10,12 +10,15 @@ hero:
 ---
 
 ```js
+class ConfigImpl {
+  @formItem(<Input placeholder='e-mail' />)
+  @label('邮箱')
+  @rules(required('请填写邮箱'))
+  email: string
 
-class Form {
-  @label('昵称')
-  @FormItem(<Input />)
-  @rules(required, nickName)
-  name
+  @formItem(<Input placeholder='password' type='password' />)
+  @label('密码')
+  @rules(required('请填写密码'))
+  password: string
 }
-
 ```

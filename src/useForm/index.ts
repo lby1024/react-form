@@ -38,6 +38,8 @@ export const useForm = <T>(props: UseFormProps) => {
       err[name] = undefined
       return err
     })
+
+    return { clearError }
   }
 
   const setFormData = (formData: F) => {
