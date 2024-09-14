@@ -1,17 +1,16 @@
 import { Flex, Input } from "antd"
 import { FC, useEffect } from "react"
-import { Config, required, useForm } from "@lby/react-form"
+import { formItem, required, rules, useForm } from "@lby/react-form"
 import '../index.css'
 
-export const fullNameConfig: Config = {
-  firstName: {
-    formItem: <Input placeholder='first name' />,
-    rules: [required('firstName不能为空')]
-  },
-  lastName: {
-    formItem: <Input placeholder='last name' />,
-    rules: [required('lastName不能为空')]
-  }
+class ConfigImpl {
+  @formItem(<Input placeholder='first name' />)
+  @rules(required('firstName不能为空'))
+  firstName: string
+
+  @formItem(<Input placeholder='last name' />)
+  @rules(required('lastName不能为空'))
+  lastName: string
 }
 
 interface FullNameProps {
@@ -19,10 +18,11 @@ interface FullNameProps {
   onChange?: Function,
   father?: any
 }
+
 export const FullName: FC<FullNameProps> = (props) => {
 
   const form = useForm({
-    config: fullNameConfig,
+    config: ConfigImpl,
     onChange: props.onChange,
     father: props.father
   })

@@ -8,7 +8,6 @@ import { useStatePro } from "../hooks/useStatePro";
 
 export const useForm = <T>(props: UseFormProps) => {
   props.config = configInit(props.config)
-  const { config } = props
 
   type N = keyof T // 表单属性: 'username' | 'password' | 'age'
   type F = FormData<T>
