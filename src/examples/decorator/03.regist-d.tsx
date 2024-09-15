@@ -23,8 +23,8 @@ class ConfigImpl {
   reparssword: string
 }
 
-function reparssword(v: string, form: any) {
-  if (form['parssword'] !== form['reparssword']) {
+function reparssword(reparssword: string, form: any) {
+  if (form['parssword'] !== reparssword) {
     throw '密码不一致'
   }
 }

@@ -1,7 +1,7 @@
 ---
 hero:
   title: react-form
-  description: 用装饰器风格构建表单
+  description: 一套react表单解决方案
   actions:
     - text: 立即上手
       link: /enties/01-start

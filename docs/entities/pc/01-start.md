@@ -17,12 +17,10 @@ import { useForm, required, formItem, label, rules } from '@by-l/react-form';
 
 class ConfigImpl {
   @formItem(<Input placeholder='e-mail' />)
-  @label('邮箱')
   @rules(required('请填写邮箱'))
   email: string
 
   @formItem(<Input placeholder='password' type='password' />)
-  @label('密码')
   @rules(required('请填写密码'))
   password: string
 }
@@ -30,7 +28,8 @@ class ConfigImpl {
 export default () => {
 
   const form = useForm({
-    config: ConfigImpl
+    config: ConfigImpl,
+    onSuccess: data => console.log(data),
   })
 
   return (
