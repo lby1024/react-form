@@ -1,20 +1,6 @@
----
-nav: 小栗子
-title: 快速开始
-order: 10
-toc: content
----
-
-## 下载
-
-```
-npm i @by-l/react-form
-```
-
-## 使用
-
-```ts
-import { useForm, required, formItem, label, rules } from '@by-l/react-form';
+import { formItem, required, rules, useForm } from '@by-l/react-form';
+import { Button, Flex, Input } from 'antd';
+import { msg } from './utils';
 
 class ConfigImpl {
   @formItem(<Input placeholder="e-mail" />)
@@ -29,18 +15,14 @@ class ConfigImpl {
 export default () => {
   const form = useForm({
     config: ConfigImpl,
-    onSuccess: (data) => console.log(data),
+    onSuccess: (data) => msg(data),
+    onFail: (err) => msg(err),
   });
 
   return (
-    <div>
+    <Flex vertical gap={21} style={{ width: 300 }}>
       {form.items.map((item) => item.formItem)}
       <Button onClick={form.submit}>登录</Button>
-    </div>
+    </Flex>
   );
 };
-```
-
-## 实例
-
-<code src='../../../src/examples/01-start.tsx' ></code>

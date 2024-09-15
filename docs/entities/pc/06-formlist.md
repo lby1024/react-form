@@ -1,18 +1,20 @@
 ---
 group:
-  title: json风格  
+  title: json风格
   order: 2
 title: 动态增减
 order: 60
 toc: content
 ---
 
-
 ## Base
-<code src='../../../src/examples/06.formList.01.tsx' ></code>
+
+<code src='../../../src/examples/06-formList01.tsx' ></code>
 
 ## 校验
-<code src='../../../src/examples/06.formList.02.tsx' ></code>
 
-## 嵌套 
-<code src='../../../src/examples/06.formList.03.tsx' ></code>
+<code src='../../../src/examples/06-formList02.tsx' ></code>
+
+## 嵌套
+
+<code src='../../../src/examples/06-formList03.tsx' ></code>
