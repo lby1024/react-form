@@ -17,8 +17,7 @@
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-    "prepare": "husky install && dumi setup",
-    "prepublishOnly": "father doctor && npm run build",
+    "prepare": "dumi setup",
     "start": "npm run dev"
   },
   "commitlint": {

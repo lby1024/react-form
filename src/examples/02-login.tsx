@@ -7,9 +7,9 @@ import {
   useForm,
 } from '@by-l/react-form';
 import { Button, Checkbox, Input } from 'antd';
-import { FormItem } from './compoment/FormItem';
 import './index.css';
 import { msg } from './utils';
+import { FormItem } from './compoment/FormItem';
 
 const config: Config = {
   email: {
