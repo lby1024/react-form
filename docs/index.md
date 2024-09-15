@@ -4,7 +4,7 @@ hero:
   description: 一套react表单解决方案
   actions:
     - text: 立即上手
-      link: /enties/01-start
+      link: entities/pc/01-start
     - text: GitHub
       link: https://github.com/lby1024/react-form
 ---
