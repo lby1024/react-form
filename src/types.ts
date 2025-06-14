@@ -12,7 +12,7 @@ export type ConfigItem = {
   show?: (formDate: any) => boolean
   initValue?: any
 }
-
+ 
 
 export type Config = {
   [key: string]: ConfigItem
