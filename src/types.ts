@@ -13,6 +13,7 @@ export type ConfigItem = {
   initValue?: any
 }
 
+
 export type Config = {
   [key: string]: ConfigItem
 }
